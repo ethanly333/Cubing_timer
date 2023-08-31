@@ -20,3 +20,14 @@ body {
     margin-left: 5% ;
     margin-top: 300px ;
 }
+
+.stats {
+    text-align: right ;
+    line-height: 1.4 ;
+}
+
+#scramble {
+    color: white ;
+    font-size: 200% ; 
+    text-align: center ;
+}
