@@ -46,3 +46,11 @@ ol {
     width: 100px ;
     overflow: auto ;
 }
+
+li { 
+    font-weight: bold ;
+}
+
+li span {
+    font-weight: normal ;
+}
