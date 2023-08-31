@@ -31,3 +31,18 @@ body {
     font-size: 200% ; 
     text-align: center ;
 }
+
+th {
+    position: relative ;
+    right: 12px ;
+}
+
+.solves {
+    line-height: 1.4 ;
+}
+
+ol {
+    height: 150px ;
+    width: 100px ;
+    overflow: auto ;
+}
