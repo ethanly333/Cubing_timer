@@ -1,0 +1,22 @@
+body {
+    background-color: #151314 ;
+    font-family: "Courier New", Helvetica, Arial, sans-serif ;
+}
+
+.main {
+    display: flex ;
+}
+
+#timer {
+    color: white ;
+    text-align: center ;
+    font-size: 400% ;
+    margin-top: 300px ;
+    margin-left: 28% ;
+}
+
+.container {
+    color: white ;
+    margin-left: 5% ;
+    margin-top: 300px ;
+}
