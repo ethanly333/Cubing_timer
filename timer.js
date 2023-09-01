@@ -21,7 +21,6 @@ const closeModal = function() {
     overlay.classList.add("hidden") ;
 } ;
 
-closeModalBtn.addEventListener("click", closeModal) ;
 openModalBtn.addEventListener("click", openModal) ;
 overlay.addEventListener("click", closeModal) ;
 
