@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="./stylesheets/style.css">
 </head>
 <body>
+    <section class="modal hidden">
+        <button class="closeBtn">X</button>
+        <p>R             Reset the timer</p>
+        <p>Spacebar      Start the timer</p>
+    </section>
+    <div class="overlay hidden"></div>
     <div class="main">
 
         <div class="container">
@@ -68,6 +74,9 @@
 
         <p id="timer"><span id="seconds">0</span>.<span id="tens">00</span></p>
 
+        <div class="icon-bar">
+            <button class="cmdBtn">Cmd</button>
+        </div>
     </div>  
     <p id="scramble">R U R' U' R U R' U' R U R' U'</p>
 

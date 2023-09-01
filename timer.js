@@ -6,6 +6,25 @@ var Interval ;
 var keyName ;
 var isRunning = false ;
 
+var modal = document.querySelector(".modal") ;
+var overlay = document.querySelector(".overlay") ;
+const closeModalBtn = document.querySelector(".closeBtn") ;
+const openModalBtn = document.querySelector(".cmdBtn")
+
+const openModal = function() {
+    modal.classList.remove("hidden") ;
+    overlay.classList.remove("hidden") ; 
+} ;
+
+const closeModal = function() {
+    modal.classList.add("hidden") ;
+    overlay.classList.add("hidden") ;
+} ;
+
+closeModalBtn.addEventListener("click", closeModal) ;
+openModalBtn.addEventListener("click", openModal) ;
+overlay.addEventListener("click", closeModal) ;
+
 function startTimer() 
 {
     tens++ ;
@@ -23,6 +42,8 @@ function startTimer()
     if(seconds>9)
         appendSeconds.innerHTML = seconds ;
 }
+
+
 
 document.addEventListener('keydown', (event) => {
     var keyDown = event.key ;
