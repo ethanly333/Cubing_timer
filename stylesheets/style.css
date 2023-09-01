@@ -11,14 +11,14 @@ body {
     color: white ;
     text-align: center ;
     font-size: 400% ;
-    margin-top: 300px ;
+    margin-top: 320px ;
     margin-left: 28% ;
 }
 
 .container {
     color: white ;
     margin-left: 5% ;
-    margin-top: 300px ;
+    margin-top: 210px ;
 }
 
 .stats {
@@ -30,6 +30,7 @@ body {
     color: white ;
     font-size: 200% ; 
     text-align: center ;
+    margin-bottom: 5% ;
 }
 
 th {
