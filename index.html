@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="./stylesheets/style.css">
 </head>
 <body>
-    <section class="modal hidden">
-        <p>R             Reset the timer</p>
-        <p>Spacebar      Start the timer</p>
-    </section>
+    <div class="flex">
+    <div class="modal hidden">
+        <div>
+            <p>Spacebar&#160;&#160;&#160;&#160;&#160;Start the timer</p>
+            <p>R&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Reset the timer</p>
+            <p>C&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Clear solve list</p>
+            <p>I&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Manual Input</p>
+            <p>T&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Change Color Theme</p>
+        </div>
+    </div>
+</div>
     <div class="overlay hidden"></div>
     <div class="main">
 
@@ -20,53 +27,38 @@
                 <tbody>
                     <tr>
                         <th>Best:</th>
-                        <td>5.00</td>
+                        <td>0.00</td>
                     </tr>
                     <tr>
                         <th>Worst:</th>
-                        <td>5.00</td>
+                        <td>0.00</td>
                     </tr>
                     <tr>
                         <th>Average:</th>
-                        <td>5.00</td>
+                        <td>0.00</td>
                     </tr>
                     <tr>
                         <th>Ao5:</th>
-                        <td>5.00</td>
+                        <td>0.00</td>
                     </tr>
                     <tr>
                         <th>Ao12:</th>
-                        <td>5.00</td>
+                        <td>0.00</td>
                     </tr>
                     <tr>
                         <th>Ao50:</th>
-                        <td>5.00</td>
+                        <td>0.00</td>
                     </tr>
                     <tr>
                         <th>Ao100:</th>
-                        <td>5.00</td>
+                        <td>0.00</td>
                     </tr>
                 </tbody>
             </table>
 
             <div class="solves">
                 <h3>Solves</h3>
-                <ol reversed>
-                    <li><span>5.00</span></li>
-                    <li><span>8.99</span></li>
-                    <li><span>4.34</span></li>
-                    <li><span>5.00</span></li>
-                    <li><span>7.99</span></li>
-                    <li><span>4.34</span></li>
-                    <li><span>5.00</span></li>
-                    <li><span>8.99</span></li>
-                    <li><span>4.34</span></li>
-                    <li><span>5.00</span></li>
-                    <li><span>7.99</span></li>
-                    <li><span>4.34</span></li>
-                    <li><span>5.00</span></li>
-                    <li><span>8.99</span></li>
-                    <li><span>4.34</span></li>
+                <ol id="solveList" reversed>
                 </ol>
             </div>
         </div>

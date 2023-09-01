@@ -5,6 +5,7 @@ var appendSeconds = document.getElementById("seconds") ;
 var Interval ;
 var keyName ;
 var isRunning = false ;
+const solveList = document.getElementById("solveList") ;
 
 var modal = document.querySelector(".modal") ;
 var overlay = document.querySelector(".overlay") ;
@@ -76,6 +77,15 @@ document.addEventListener('keyup', (event) => {
         timer.style.color = "white" ;
         isRunning = false ;
         clearInterval(Interval) ;
+        const li = document.createElement("li") ;
+        const time = document.createElement("span") ;
+
+        li.setAttribute("class", "solve") ;
+        time.setAttribute("class", "time") ;
+
+        time.innerHTML = `${seconds}.${tens}` ;
+        li.append(time) ;
+        solveList.prepend(li) ;
     }
 
     else if(keyName  == "r")
@@ -85,6 +95,12 @@ document.addEventListener('keyup', (event) => {
         seconds = "0" ;
         appendTens.innerHTML = tens ;
         appendSeconds.innerHTML = seconds ;
+    }
+
+    else if(keyName == "c")
+    {
+        while(solveList.firstChild)
+            solveList.removeChild(solveList.firstChild) ;
     }
 }, false) ;
 
