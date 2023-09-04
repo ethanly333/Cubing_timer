@@ -7,6 +7,17 @@ var keyName ;
 var isRunning = false ;
 const solveList = document.getElementById("solveList") ;
 
+const solveArr = solveList.getElementsByTagName("li") ;
+
+var appendBestSolve = document.getElementById("bestSolve") ;
+var bestSolve ;
+var appendAvg = document.getElementById("avg") ;
+var avg ;
+var appendAo5 = document.getElementById("ao5") ;
+var ao12 = document.getElementById("ao12") ;
+var ao50 = document.getElementById("ao50") ;
+var ao100 = document.getElementById("ao100") ;
+
 var modal = document.querySelector(".modal") ;
 var overlay = document.querySelector(".overlay") ;
 const closeModalBtn = document.querySelector(".closeBtn") ;
@@ -43,7 +54,35 @@ function startTimer()
         appendSeconds.innerHTML = seconds ;
 }
 
+function updateStats(time)
+{
+    if(solveArr.length == 1)
+    {
+        appendBestSolve.innerHTML = time ;
+        bestSolve = parseFloat(time) ;
+        appendAvg.innerHTML = time ;
+        avg = parseFloat(time) ;
+    }//end if
+    else if(solveArr.length > 1)
+    {
+        if(parseFloat(time) < bestSolve)
+        {
+            bestSolve = parseFloat(time) ;
+            appendBestSolve.innerHTML = time ;
+        }//end if
+        //avg = (avg+parseFloat(time))/solveArr.length ;
+        var temp = 0 ;
+        for(let i=0; i<solveArr.length; i++) 
+        {
+            temp+=parseFloat(solveArr[i].textContent) ;
+        }//end for i
 
+        avg = temp/solveArr.length ;
+
+        appendAvg.innerHTML = avg.toFixed(2) ;
+    }//end else if
+
+}
 
 document.addEventListener('keydown', (event) => {
     var keyDown = event.key ;
@@ -86,6 +125,8 @@ document.addEventListener('keyup', (event) => {
         time.innerHTML = `${seconds}.${tens}` ;
         li.append(time) ;
         solveList.prepend(li) ;
+
+        updateStats(time.innerHTML) ;
     }
 
     else if(keyName  == "r")
@@ -101,6 +142,10 @@ document.addEventListener('keyup', (event) => {
     {
         while(solveList.firstChild)
             solveList.removeChild(solveList.firstChild) ;
+        appendTens.innerHTML = "00" ;
+        appendSeconds.innerHTML = "0" ;
+        appendBestSolve.innerHTML = "--" ;
+        appendAvg.innerHTML = "--" ;
     }
 }, false) ;
 
