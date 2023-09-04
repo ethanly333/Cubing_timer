@@ -116,3 +116,7 @@ li span {
 .hidden {
     display: none ;
 }
+
+#scrambleSection {
+    text-align: center ;
+}
