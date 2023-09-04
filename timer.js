@@ -28,6 +28,8 @@ var overlay = document.querySelector(".overlay") ;
 const closeModalBtn = document.querySelector(".closeBtn") ;
 const openModalBtn = document.querySelector(".cmdBtn")
 
+var appendScramble = document.getElementById("scramble") ;
+
 const openModal = function() {
     modal.classList.remove("hidden") ;
     overlay.classList.remove("hidden") ; 
@@ -141,6 +143,10 @@ function updateStats(time)
     }//end if
 }//end update Stats
 
+document.addEventListener("DOMContentLoaded", () => {
+    generateScramble() ;
+}) ;
+
 document.addEventListener('keydown', (event) => {
     var keyDown = event.key ;
     const timer = document.getElementById("timer") ;
@@ -220,7 +226,25 @@ document.addEventListener('keyup', (event) => {
     }//end else if
 }, false) ; //end event listener for keyup
 
+function getRandomNum(max)
+{
+    return Math.floor(Math.random() * Math.floor(max)) ;
+}
+
 function generateScramble() 
 {
-    
+    const moveList = ["F", "F'", "F2", "R", "R'", "R2", 
+                    "L", "L'", "L2", "U", "U'", "U2", 
+                    "D", "D'", "D2", "B", "B'", "B2"
+                    ] ;
+    var scramble = [] ; 
+    var scrambleStr ; 
+
+    for(let i=0; i<20; i++)
+    {
+        scramble.push(moveList[getRandomNum(moveList.length)]) ;  
+    }//end for i
+
+    scrambleStr = scramble.toString().split(',').join(' ') ;
+    appendScramble.innerHTML = scrambleStr ;
 }//end generateScramble
