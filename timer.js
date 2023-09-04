@@ -6,9 +6,9 @@ var Interval ;
 var keyName ;
 var isRunning = false ;
 const solveList = document.getElementById("solveList") ;
-
 const solveArr = solveList.getElementsByTagName("li") ;
 
+/* All statistic variables */
 var appendBestSolve = document.getElementById("bestSolve") ;
 var bestSolve ;
 var appendAvg = document.getElementById("avg") ;
@@ -22,6 +22,7 @@ var ao50 ;
 var appendAo100 = document.getElementById("ao100") ;
 var ao100 ;
 
+/* Modal Variables */
 var modal = document.querySelector(".modal") ;
 var overlay = document.querySelector(".overlay") ;
 const closeModalBtn = document.querySelector(".closeBtn") ;
@@ -35,7 +36,7 @@ const openModal = function() {
 const closeModal = function() {
     modal.classList.add("hidden") ;
     overlay.classList.add("hidden") ;
-} ;
+} ; 
 
 openModalBtn.addEventListener("click", openModal) ;
 overlay.addEventListener("click", closeModal) ;
@@ -53,10 +54,10 @@ function startTimer()
         appendSeconds.innerHTML = seconds ;
         tens = 0 ;
         appendTens.innerHTML = "00" ;
-    }
+    }//end if
     if(seconds>9)
         appendSeconds.innerHTML = seconds ;
-}
+}//end startTimer
 
 function updateStats(time)
 {
@@ -124,7 +125,7 @@ function updateStats(time)
 
         ao50 = ao50temp/50 ;
         appendAo50.innerHTML = ao50.toFixed(2) ;
-    }
+    }//end if
 
     /* Ao100 Statistic */
     if(solveArr.length >= 100)
@@ -137,9 +138,8 @@ function updateStats(time)
 
         ao100 = ao100temp/100 ;
         appendAo100.innerHTML = ao100.toFixed(2) ;
-    }
-
-}
+    }//end if
+}//end update Stats
 
 document.addEventListener('keydown', (event) => {
     var keyDown = event.key ;
@@ -149,7 +149,7 @@ document.addEventListener('keydown', (event) => {
     {
         timer.style.color = '#EDCC0C' ;
     }
-}, false) ;
+}, false) ; //end event listener for keydown
 
 document.addEventListener('keyup', (event) => {
     keyName = event.key ;
@@ -166,7 +166,7 @@ document.addEventListener('keyup', (event) => {
         isRunning = true ;
         clearInterval(Interval) ;
         Interval = setInterval(startTimer, 10) ;
-    }
+    }//end if
 
     else if(keyName == " " && isRunning) 
     {
@@ -184,7 +184,7 @@ document.addEventListener('keyup', (event) => {
         solveList.prepend(li) ;
 
         updateStats(time.innerHTML) ;
-    }
+    }//end else if
 
     else if(keyName  == "r")
     {
@@ -193,16 +193,34 @@ document.addEventListener('keyup', (event) => {
         seconds = "0" ;
         appendTens.innerHTML = tens ;
         appendSeconds.innerHTML = seconds ;
-    }
 
-    else if(keyName == "c")
+        solveList.removeChild(solveList.firstChild) ;
+        updateStats(solveList.firstChild.textContent) ;
+
+        if(solveArr.length == 0)
+        {
+            appendBestSolve.innerHTML = "--" ;
+            appendAvg.innerHTML = "--" ;
+        }
+    }//end else if
+
+    if(keyName == "c")
     {
         while(solveList.firstChild)
             solveList.removeChild(solveList.firstChild) ;
+
         appendTens.innerHTML = "00" ;
         appendSeconds.innerHTML = "0" ;
         appendBestSolve.innerHTML = "--" ;
         appendAvg.innerHTML = "--" ;
-    }
-}, false) ;
+        appendAo5.innerHTML = "--" ;
+        appendAo12.innerHTML = "--" ;
+        appendAo50.innerHTML = "--" ;
+        appendAo100.innerHTML = "--" ;
+    }//end else if
+}, false) ; //end event listener for keyup
 
+function generateScramble() 
+{
+    
+}//end generateScramble
