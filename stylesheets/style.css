@@ -97,7 +97,8 @@ li span {
     min-height: 250px;
     position: absolute;
     top: 20%;
-    background-color: #999997 ;
+    background-color: var(--cmd-modal) ;
+    color: var(--modal-text) ;
     border-radius: 15px;
     z-index: 2 ;
 }
@@ -129,6 +130,60 @@ li span {
     text-align: center ;
 }
 
+.themeModal button {
+    font-size: 100% ;
+    border-radius: 8px ;
+    border: none ;
+    padding-top: 5px ;
+    padding-bottom: 5px ;
+    padding-right: 15px ;
+    padding-left: 15px ;
+}
+
+#classyBtn {
+    color: #EDCC0C ;
+    background-color: #303030 ; 
+}
+
+#classyBtn:hover{
+    background-color: #A48D0A ;
+    color: #303030 ;
+}
+
+#sunsetBtn {
+    background-color: #463170 ; 
+    color: #CD1334 ;
+}
+
+#sunsetBtn:hover {
+    color: #463170 ;
+    background-color: #B83143 ;
+}
+
+#vintageBtn {
+    background-color: #473C38 ;
+    color: #A2670A ;
+}
+
+#vintageBtn:hover {
+    background-color: #A2670A ;
+    color: #473C38 ;
+}
+
+#jungleBtn {
+    background-color: #243630 ;
+    color: #b39974 ; 
+}
+
+#jungleBtn:hover {
+    color: #243630 ;
+    background-color: #5B846F  ;
+}
+
+.themeBtnContainer {
+    text-align: center ;
+}
+
 .classyOGTheme {
     --background-color: #303030 ;
     --font-family: 'Courier New', Courier, monospace ;
@@ -137,10 +192,12 @@ li span {
     --cmd-btn-font: black ;
     --hover-color: #A48D0A; ;
     --timerDownColor: #EDCC0C ;
+    --cmd-modal: #999997 ;
+    --modal-text: black ;
 }
 
 .sunsetTheme {
-    --background-color: #65499D ;
+    --background-color: #463170 ;
     --background-image: linear-gradient(to bottom right, #2D0089, #9D2D72);
     --font-family: 'Courier New', Courier, monospace ;
     --color: #FFDE59 ;
@@ -148,6 +205,8 @@ li span {
     --cmd-btn-font: #FFDE59 ;
     --hover-color: #790E21 ;
     --timerDownColor: #CD1334 ;
+    --cmd-modal: #8C2794 ;
+    --modal-text: #FFDE59 ;
 }
 
 .vintageTheme {
@@ -157,6 +216,8 @@ li span {
     --cmd-btn: #A2670A ;
     --hover-color: #6B4408 ;
     --timerDownColor: #A2670A ;
+    --cmd-modal: #C4A092 ;
+    --modal-text: #473C38 ;
 }
 
 .jungleTheme {
@@ -166,4 +227,6 @@ li span {
     --cmd-btn: #5B846F ;
     --hover-color: #26372E ;
     --timerDownColor: #5B846F ;
+    --cmd-modal: #b39974 ;
+    --modal-text: #26372E ;
 }
