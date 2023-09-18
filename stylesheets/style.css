@@ -136,8 +136,10 @@ li span {
     border: none ;
     padding-top: 5px ;
     padding-bottom: 5px ;
-    padding-right: 15px ;
-    padding-left: 15px ;
+    padding-right: 12px ;
+    padding-left: 12px ;
+    margin-top: 10px ;
+    margin-bottom: 10px ;
 }
 
 #classyBtn {
@@ -178,6 +180,26 @@ li span {
 #jungleBtn:hover {
     color: #243630 ;
     background-color: #5B846F  ;
+}
+
+#halloweenBtn {
+    background-color: #6403E2 ;
+    color: #c1fd72 ;
+}
+
+#halloweenBtn:hover {
+    color: #6403E2 ;
+    background-color: #c1fd72 ;
+}
+
+#retroBtn {
+    color: #A35752 ;
+    background-color: #346262 ;
+}
+
+#retroBtn:hover {
+    color: #346262 ;
+    background-color: #A35752 ;
 }
 
 .themeBtnContainer {
@@ -229,4 +251,26 @@ li span {
     --timerDownColor: #5B846F ;
     --cmd-modal: #b39974 ;
     --modal-text: #26372E ;
+}
+
+.halloweenTheme {
+    --background-color: #232101 ;
+    --font-family: 'Courier New', Courier, monospace ;
+    --color: #c1fd72 ;
+    --cmd-btn: #6403E2 ;
+    --hover-color: #350276 ;
+    --timerDownColor: #6403E2 ;
+    --cmd-modal: #000323 ;
+    --modal-text: #c1fd72 ;
+}
+
+.retroTheme {
+    --background-image: linear-gradient(to bottom right, #A35752, #B27541);
+    --font-family: 'Courier New', Courier, monospace ;
+    --color: #346262 ;
+    --cmd-btn: #D6AD09 ;
+    --hover-color: #593A2D ;
+    --timerDownColor: #D6AD09 ;
+    --cmd-modal: #485D5D ;
+    --modal-text: #D6AD09 ;
 }

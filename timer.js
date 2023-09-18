@@ -407,3 +407,13 @@ function jungleMode() {
     document.body.classList.replace(currentTheme, "jungleTheme") ;
     currentTheme = "jungleTheme" ;
 }//end jungle mode
+
+function halloweenMode() {
+    document.body.classList.replace(currentTheme, "halloweenTheme") ;
+    currentTheme = "halloweenTheme" ;
+}
+
+function retroMode() {
+    document.body.classList.replace(currentTheme, "retroTheme") ;
+    currentTheme = "retroTheme" ;
+}
