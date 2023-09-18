@@ -6,18 +6,26 @@
     <title>Timely</title>
     <link rel="stylesheet" href="./stylesheets/style.css">
 </head>
-<body>
+<body class="classyOGTheme">
     <div class="flex">
-    <div class="modal hidden">
-        <div>
-            <p>Spacebar&#160;&#160;&#160;&#160;&#160;Start the timer</p>
-            <p>R&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Remove last time</p>
-            <p>C&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Clear solve list</p>
-            <p>I&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Manual Input</p>
-            <p>T&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Change Color Theme</p>
+        <div class="modal hidden">
+            <div>
+                <p>Spacebar&#160;&#160;&#160;&#160;&#160;Start the timer</p>
+                <p>R&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Remove last time</p>
+                <p>C&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Clear solve list</p>
+                <p>I&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Manual Input</p>
+                <p>T&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Change Color Theme</p>
+            </div>
+        </div>
+        <div class="themeModal hidden">
+            <div>
+                <button onclick="classyOGMode()">Classy OG</button>
+                <button onclick="sunsetMode()">Sunset</button>
+                <button onclick="vintageMode()">Vintage</button>
+                <button onclick="jungleMode()">Jungle</button>
+            </div>
         </div>
     </div>
-</div>
     <div class="overlay hidden"></div>
     <div class="main">
 

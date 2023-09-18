@@ -24,13 +24,23 @@ var ao50 ;
 var appendAo100 = document.getElementById("ao100") ;
 var ao100 ;
 
-/* Modal Variables */
+/* Hot Key Modal Variables */
 var modal = document.querySelector(".modal") ;
 var overlay = document.querySelector(".overlay") ;
 const closeModalBtn = document.querySelector(".closeBtn") ;
 const openModalBtn = document.querySelector(".cmdBtn")
 
+/* Theme Switcher Modal Variables */
+var themeModal = document.querySelector(".themeModal");
+
 var appendScramble = document.getElementById("scramble") ;
+var currentTheme = "classyOGTheme" ;
+var body = getComputedStyle(document.querySelector('body')) ;
+
+const openThemeModal = function() {
+    themeModal.classList.remove("hidden") ;
+    overlay.classList.remove("hidden") ; 
+} ;
 
 const openModal = function() {
     modal.classList.remove("hidden") ;
@@ -40,6 +50,7 @@ const openModal = function() {
 const closeModal = function() {
     modal.classList.add("hidden") ;
     overlay.classList.add("hidden") ;
+    themeModal.classList.add("hidden") ;
 } ; 
 
 openModalBtn.addEventListener("click", openModal) ;
@@ -73,7 +84,7 @@ function startTimer()
         document.getElementById("colon").style.display= '';
         seconds = 0 ;
         appendSeconds.innerHTML = seconds ;
-    }
+    }//end if
 }//end startTimer
 
 function updateStats(time)
@@ -216,7 +227,8 @@ document.addEventListener('keydown', (event) => {
 
     if(keyDown == " ")
     {
-        timer.style.color = '#EDCC0C' ;
+        //timer.style.color = '#EDCC0C' ;
+        timer.style.color = body.getPropertyValue('--timerDownColor') ;
     }
 }, false) ; //end event listener for keydown
 
@@ -240,7 +252,8 @@ document.addEventListener('keyup', (event) => {
 
     else if(keyName == " " && isRunning) 
     {
-        timer.style.color = "white" ;
+        //timer.style.color = "white" ;
+        timer.style.color = body.getPropertyValue('--color') ;
         isRunning = false ;
         clearInterval(Interval) ;
         const li = document.createElement("li") ;
@@ -273,7 +286,6 @@ document.addEventListener('keyup', (event) => {
         document.getElementById("mins").style.display= 'none';
         document.getElementById("colon").style.display= 'none';
 
-
         solveList.removeChild(solveList.firstChild) ;
         updateStats(solveList.firstChild.textContent) ;
 
@@ -303,6 +315,11 @@ document.addEventListener('keyup', (event) => {
         appendAo50.innerHTML = "--" ;
         appendAo100.innerHTML = "--" ;
     }//end else if
+
+    if(keyName == "t")
+    {
+        openThemeModal() ;
+    }//end if
 }, false) ; //end event listener for keyup
 
 function getRandomNum(max)
@@ -370,3 +387,23 @@ function generateScramble()
     scrambleStr = scramble_char.toString().split(',').join(' ') ;
     appendScramble.innerHTML = scrambleStr ;
 }//end generateScramble
+
+function classyOGMode() {
+    document.body.classList.replace(currentTheme, "classyOGTheme") ;
+    currentTheme = "classyOGTheme" ;
+}//end classy OG Mode
+
+function sunsetMode() {
+    document.body.classList.replace(currentTheme, "sunsetTheme") ;
+    currentTheme = "sunsetTheme" ;
+}//end sunset Mode
+
+function vintageMode() {
+    document.body.classList.replace(currentTheme, "vintageTheme") ;
+    currentTheme = "vintageTheme" ;
+}//end vintage mode
+
+function jungleMode() {
+    document.body.classList.replace(currentTheme, "jungleTheme") ;
+    currentTheme = "jungleTheme" ;
+}//end jungle mode

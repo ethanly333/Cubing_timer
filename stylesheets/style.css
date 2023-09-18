@@ -1,6 +1,13 @@
 body {
-    background-color: #303030 ;
-    font-family: 'Courier New', Courier, monospace;
+    /*background-color: #303030 ;*/
+    background: no-repeat center center fixed ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: var(--background-color) ;
+    background-image: var(--background-image) ;
+    font-family: var(--font-family) ;
     align-items: center ;
 }
 
@@ -9,7 +16,7 @@ body {
 }
 
 #timer {
-    color: white ;
+    color: var(--color) ;
     text-align: center ;
     font-size: 400% ;
     margin-top: 320px ;
@@ -17,7 +24,7 @@ body {
 }
 
 .container {
-    color: white ;
+    color: var(--color) ;
     margin-left: 5% ;
     margin-top: 210px ;
     flex-direction: row ;
@@ -29,7 +36,7 @@ body {
 }
 
 #scramble {
-    color: white ;
+    color: var(--color) ;
     font-size: 200% ; 
     text-align: center ;
     margin-bottom: 5% ;
@@ -64,9 +71,10 @@ li span {
 }
 
 .icon-bar button {
-    font-family: 'Courier New', Courier, monospace ;
+    font-family: var(--font-family) ;
     font-size: 100% ;
-    background-color: #EDCC0C ;
+    color: var(--cmd-btn-font) ;
+    background-color: var(--cmd-btn) ; 
     border-radius: 8px ;
     border: none ;
     padding-top: 5px ;
@@ -76,10 +84,10 @@ li span {
 }
 
 .icon-bar button:hover{
-    background-color: #A48D0A;
+    background-color: var(--hover-color) ;
 }
 
-.modal {
+.modal, .themeModal{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -119,4 +127,43 @@ li span {
 
 #scrambleSection {
     text-align: center ;
+}
+
+.classyOGTheme {
+    --background-color: #303030 ;
+    --font-family: 'Courier New', Courier, monospace ;
+    --color: white ;
+    --cmd-btn: #EDCC0C ;
+    --cmd-btn-font: black ;
+    --hover-color: #A48D0A; ;
+    --timerDownColor: #EDCC0C ;
+}
+
+.sunsetTheme {
+    --background-color: #65499D ;
+    --background-image: linear-gradient(to bottom right, #2D0089, #9D2D72);
+    --font-family: 'Courier New', Courier, monospace ;
+    --color: #FFDE59 ;
+    --cmd-btn: #CD1334 ;
+    --cmd-btn-font: #FFDE59 ;
+    --hover-color: #790E21 ;
+    --timerDownColor: #CD1334 ;
+}
+
+.vintageTheme {
+    --background-color: #473C38 ;
+    --font-family: 'Courier New', Courier, monospace ;
+    --color: #C4A092 ;
+    --cmd-btn: #A2670A ;
+    --hover-color: #6B4408 ;
+    --timerDownColor: #A2670A ;
+}
+
+.jungleTheme {
+    --background-color: #243630 ;
+    --font-family: 'Courier New', Courier, monospace ;
+    --color: #b39974 ;
+    --cmd-btn: #5B846F ;
+    --hover-color: #26372E ;
+    --timerDownColor: #5B846F ;
 }
