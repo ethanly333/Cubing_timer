@@ -1,7 +1,9 @@
+var mins = 0 ;
 var seconds = 0 ;
 var tens = 0 ;
 var appendTens = document.getElementById("tens") ;
 var appendSeconds = document.getElementById("seconds") ;
+var appendMins = document.getElementById("mins") ;
 var Interval ;
 var keyName ;
 var isRunning = false ;
@@ -43,6 +45,12 @@ const closeModal = function() {
 openModalBtn.addEventListener("click", openModal) ;
 overlay.addEventListener("click", closeModal) ;
 
+if(mins == 0)
+{
+    document.getElementById("mins").style.display= 'none';
+    document.getElementById("colon").style.display= 'none';
+}
+
 function startTimer() 
 {
     tens++ ;
@@ -57,8 +65,15 @@ function startTimer()
         tens = 0 ;
         appendTens.innerHTML = "00" ;
     }//end if
-    if(seconds>9)
+    if(seconds>59)
+    {   
+        mins++ ;
+        appendMins.innerHTML = mins ;
+        document.getElementById("mins").style.display= '' ;
+        document.getElementById("colon").style.display= '';
+        seconds = 0 ;
         appendSeconds.innerHTML = seconds ;
+    }
 }//end startTimer
 
 function updateStats(time)
@@ -164,6 +179,7 @@ document.addEventListener('keyup', (event) => {
     if(keyName == " " && !isRunning)
     {
         clearInterval(Interval) ;
+        mins = "0" ;
         tens = "00" ;
         seconds = "0" ;
         appendTens.innerHTML = tens ;
@@ -172,7 +188,7 @@ document.addEventListener('keyup', (event) => {
         isRunning = true ;
         clearInterval(Interval) ;
         Interval = setInterval(startTimer, 10) ;
-    }//end if
+    }//end if    
 
     else if(keyName == " " && isRunning) 
     {
@@ -185,7 +201,11 @@ document.addEventListener('keyup', (event) => {
         li.setAttribute("class", "solve") ;
         time.setAttribute("class", "time") ;
 
-        time.innerHTML = `${seconds}.${tens}` ;
+        if(mins > 0)
+            time.innerHTML = `${mins}:${seconds}.${tens}` ;
+        else
+            time.innerHTML = `${seconds}.${tens}` ;
+
         li.append(time) ;
         solveList.prepend(li) ;
 
@@ -198,8 +218,13 @@ document.addEventListener('keyup', (event) => {
         clearInterval(Interval) ;
         tens = "00" ;
         seconds = "0" ;
+        mins = "0" ;
         appendTens.innerHTML = tens ;
         appendSeconds.innerHTML = seconds ;
+        appendMins.innerHTML = mins ;
+        document.getElementById("mins").style.display= 'none';
+        document.getElementById("colon").style.display= 'none';
+
 
         solveList.removeChild(solveList.firstChild) ;
         updateStats(solveList.firstChild.textContent) ;
@@ -218,6 +243,11 @@ document.addEventListener('keyup', (event) => {
 
         appendTens.innerHTML = "00" ;
         appendSeconds.innerHTML = "0" ;
+        
+        appendMins.innerHTML = "0" ;
+        document.getElementById("mins").style.display= 'none';
+        document.getElementById("colon").style.display= 'none';
+
         appendBestSolve.innerHTML = "--" ;
         appendAvg.innerHTML = "--" ;
         appendAo5.innerHTML = "--" ;
