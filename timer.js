@@ -109,12 +109,24 @@ function updateStats(time)
     if(solveArr.length >= 5)
     {
         var ao5temp = 0 ;
+        var bestTime = parseFloat(solveArr[0].textContent) ;
+        var worstTime = parseFloat(solveArr[0].textContent) ;
+
+        for(let i=1; i<5; i++)
+        {
+            if(parseFloat(solveArr[i].textContent) < bestTime)
+                bestTime = parseFloat(solveArr[i].textContent) ;
+
+            if(parseFloat(solveArr[i].textContent) > worstTime)
+                worstTime = parseFloat(solveArr[i].textContent) ;
+        }//end for i
+
         for(let i=0; i<5; i++)
         {
             ao5temp += parseFloat(solveArr[i].textContent) ;
         }//end for i
 
-        ao5 = ao5temp/5 ;
+        ao5 = (ao5temp-bestTime-worstTime)/3 ;
         appendAo5.innerHTML = ao5.toFixed(2) ;
     }//end if
 
@@ -122,12 +134,24 @@ function updateStats(time)
     if(solveArr.length >= 12)
     {
         var ao12temp = 0 ;
+        var bestTime = parseFloat(solveArr[0].textContent) ;
+        var worstTime = parseFloat(solveArr[0].textContent) ;
+
+        for(let i=1; i<12; i++)
+        {
+            if(parseFloat(solveArr[i].textContent) < bestTime)
+                bestTime = parseFloat(solveArr[i].textContent) ;
+
+            if(parseFloat(solveArr[i].textContent) > worstTime)
+                worstTime = parseFloat(solveArr[i].textContent) ;
+        }//end for i
+
         for(let i=0; i<12; i++)
         {
             ao12temp += parseFloat(solveArr[i].textContent) ;
         }//end for i
 
-        ao12 = ao12temp/12 ;
+        ao12 = (ao12temp-bestTime-worstTime)/10 ;
         appendAo12.innerHTML = ao12.toFixed(2) ;
     }//end if
 
@@ -135,12 +159,24 @@ function updateStats(time)
     if(solveArr.length >= 50)
     {
         var ao50temp = 0 ;
+        var bestTime = parseFloat(solveArr[0].textContent) ;
+        var worstTime = parseFloat(solveArr[0].textContent) ;
+
+        for(let i=1; i<50; i++)
+        {
+            if(parseFloat(solveArr[i].textContent) < bestTime)
+                bestTime = parseFloat(solveArr[i].textContent) ;
+
+            if(parseFloat(solveArr[i].textContent) > worstTime)
+                worstTime = parseFloat(solveArr[i].textContent) ;
+        }//end for i
+
         for(let i=0; i<50; i++)
         {
             ao50temp += parseFloat(solveArr[i].textContent) ;
         }//end for i
 
-        ao50 = ao50temp/50 ;
+        ao50 = (ao50temp-bestTime-worstTime)/48 ;
         appendAo50.innerHTML = ao50.toFixed(2) ;
     }//end if
 
@@ -148,12 +184,24 @@ function updateStats(time)
     if(solveArr.length >= 100)
     {
         var ao100temp = 0 ;
+        var bestTime = parseFloat(solveArr[0].textContent) ;
+        var worstTime = parseFloat(solveArr[0].textContent) ;
+
+        for(let i=1; i<100; i++)
+        {
+            if(parseFloat(solveArr[i].textContent) < bestTime)
+                bestTime = parseFloat(solveArr[i].textContent) ;
+
+            if(parseFloat(solveArr[i].textContent) > worstTime)
+                worstTime = parseFloat(solveArr[i].textContent) ;
+        }//end for i
+
         for(let i=0; i<100; i++)
         {
             ao100temp += parseFloat(solveArr[i].textContent) ;
         }//end for i
 
-        ao100 = ao100temp/100 ;
+        ao100 = (ao100temp-bestTime-worstTime)/98 ;
         appendAo100.innerHTML = ao100.toFixed(2) ;
     }//end if
 }//end update Stats
