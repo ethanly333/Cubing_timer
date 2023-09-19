@@ -192,14 +192,24 @@ li span {
     background-color: #c1fd72 ;
 }
 
-#retroBtn {
-    color: #A35752 ;
-    background-color: #346262 ;
+#lightBtn {
+    color: #4481fc ;
+    background-color: #e6e5e6 ;
 }
 
-#retroBtn:hover {
-    color: #346262 ;
-    background-color: #A35752 ;
+#lightBtn:hover {
+    color: #e6e5e6 ;
+    background-color: #4481fc ;
+}
+
+#tuxBtn {
+    color: #dfdfdf ;
+    background-color: #141313 ;
+}
+
+#tuxBtn:hover {
+    background-color: #dfdfdf ;
+    color: #141313 ;
 }
 
 .themeBtnContainer {
@@ -264,13 +274,24 @@ li span {
     --modal-text: #c1fd72 ;
 }
 
-.retroTheme {
-    --background-image: linear-gradient(to bottom right, #A35752, #B27541);
+.lightTheme {
+    --background-color: #e6e5e6 ;
     --font-family: 'Courier New', Courier, monospace ;
-    --color: #346262 ;
-    --cmd-btn: #D6AD09 ;
-    --hover-color: #593A2D ;
-    --timerDownColor: #D6AD09 ;
-    --cmd-modal: #485D5D ;
-    --modal-text: #D6AD09 ;
+    --color: #585858 ;
+    --cmd-btn: #4481fc ;
+    --hover-color: #345fb6 ;
+    --timerDownColor: #4481fc ;
+    --cmd-modal: #585858 ;
+    --modal-text: #e6e5e6 ;
+}
+
+.tuxTheme {
+    --background-color: #141313 ;
+    --font-family: 'Courier New', Courier, monospace ;
+    --color: #dfdfdf ;
+    --cmd-btn: #dfdfdf ;
+    --hover-color: #b1b1b1 ;
+    --timerDownColor: #484848 ;
+    --cmd-modal: #b1b1b1 ;
+    --modal-text: #141313 ;
 }

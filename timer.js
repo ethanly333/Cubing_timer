@@ -413,7 +413,12 @@ function halloweenMode() {
     currentTheme = "halloweenTheme" ;
 }
 
-function retroMode() {
-    document.body.classList.replace(currentTheme, "retroTheme") ;
-    currentTheme = "retroTheme" ;
+function lightMode() {
+    document.body.classList.replace(currentTheme, "lightTheme") ;
+    currentTheme = "lightTheme" ;
+}
+
+function tuxMode() {
+    document.body.classList.replace(currentTheme, "tuxTheme") ;
+    currentTheme = "tuxTheme" ;
 }
