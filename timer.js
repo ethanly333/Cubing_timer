@@ -87,6 +87,21 @@ function startTimer()
     }//end if
 }//end startTimer
 
+function findBestSolve()
+{
+    bestSolve = parseFloat(solveArr[0].textContent) ;
+    tempIdx = 0 ;
+    for(let i=1; i<solveArr.length; i++)
+    {
+        if(parseFloat(solveArr[i].textContent) < bestSolve)
+        {
+            bestSolve = parseFloat(solveArr[i].textContent) ;
+            tempIdx = i ;
+        }
+    }
+    appendBestSolve.innerHTML = solveArr[tempIdx].textContent ;
+}
+
 function updateStats(time)
 {
     if(solveArr.length == 1)
@@ -287,13 +302,18 @@ document.addEventListener('keyup', (event) => {
         document.getElementById("colon").style.display= 'none';
 
         solveList.removeChild(solveList.firstChild) ;
-        updateStats(solveList.firstChild.textContent) ;
-
+    
         if(solveArr.length == 0)
         {
             appendBestSolve.innerHTML = "--" ;
             appendAvg.innerHTML = "--" ;
+            appendAo5.innerHTML = "--" ;
+            appendAo12.innerHTML = "--" ;
+            appendAo100.innerHTML = "--" ;
         }//end if
+
+        findBestSolve() ;
+        updateStats(solveList.firstChild.textContent) ;
     }//end else if
 
     if(keyName == "c")
