@@ -66,6 +66,12 @@ const closeModal = function() {
 openModalBtn.addEventListener("click", openModal) ;
 overlay.addEventListener("click", closeModal) ;
 
+if(mins == "00")
+{
+    document.getElementById("mins").style.display = 'none' ;
+    document.getElementById("colon").style.display = 'none' ;
+}
+
 function startTimer() 
 {
     var now = (new Date()).getTime() ;
@@ -81,6 +87,7 @@ function startTimer()
         var str_tens = "" + str_time.substring(9, 11) ;
 
         document.getElementById("tens").innerHTML = str_tens ;
+        tens = str_tens ;
 
         // strip the leading 0 from seconds if applicable
         if(str_sec[0] == "0")
@@ -91,6 +98,8 @@ function startTimer()
         {
             str_sec = "" + str_time.substring(6, 8) ;
         }
+        seconds = str_sec ;
+        document.getElementById("seconds").innerHTML = str_sec ;
 
         // only show minutes if they are not 00
         if(str_min != "00")
@@ -104,12 +113,12 @@ function startTimer()
             {
                 str_min = "" + str_time.substring(3, 5) ;
             }
+            mins = str_min ;
+
             document.getElementById("mins").style.display = ''  ;
             document.getElementById("colon").style.display = '' ;
             document.getElementById("mins").innerHTML = str_min ;
         }
-
-        document.getElementById("seconds").innerHTML = str_sec ;
 
         requestAnimationFrame(startTimer) ;
     }
@@ -308,10 +317,10 @@ document.addEventListener('keyup', (event) => {
         li.setAttribute("class", "solve") ;
         time.setAttribute("class", "time") ;
 
-        if(mins > 0)
-            time.innerHTML = `${mins}:${seconds}.${tens}` ;
+        if(mins != "00")
+            time.innerHTML = mins + ":" + seconds + "." + tens ; //`${mins}:${seconds}.${tens}` ;
         else
-            time.innerHTML = `${seconds}.${tens}` ;
+            time.innerHTML = seconds + "." + tens ; //`${seconds}.${tens}` ;
 
         li.append(time) ;
         solveList.prepend(li) ;
@@ -349,22 +358,25 @@ document.addEventListener('keyup', (event) => {
 
     if(keyName == "c")
     {
-        while(solveList.firstChild)
+        if(confirm("Clear solve list"))
+        {
+            while(solveList.firstChild)
             solveList.removeChild(solveList.firstChild) ;
 
-        appendTens.innerHTML = "00" ;
-        appendSeconds.innerHTML = "0" ;
-        
-        appendMins.innerHTML = "0" ;
-        document.getElementById("mins").style.display= 'none';
-        document.getElementById("colon").style.display= 'none';
+            appendTens.innerHTML = "00" ;
+            appendSeconds.innerHTML = "0" ;
+            
+            appendMins.innerHTML = "0" ;
+            document.getElementById("mins").style.display= 'none';
+            document.getElementById("colon").style.display= 'none';
 
-        appendBestSolve.innerHTML = "--" ;
-        appendAvg.innerHTML = "--" ;
-        appendAo5.innerHTML = "--" ;
-        appendAo12.innerHTML = "--" ;
-        appendAo50.innerHTML = "--" ;
-        appendAo100.innerHTML = "--" ;
+            appendBestSolve.innerHTML = "--" ;
+            appendAvg.innerHTML = "--" ;
+            appendAo5.innerHTML = "--" ;
+            appendAo12.innerHTML = "--" ;
+            appendAo50.innerHTML = "--" ;
+            appendAo100.innerHTML = "--" ;
+        }        
     }//end else if
 
     if(keyName == "t")
