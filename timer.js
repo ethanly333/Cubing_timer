@@ -4,7 +4,6 @@ var tens = "00" ;
 var appendTens = document.getElementById("tens") ;
 var appendSeconds = document.getElementById("seconds") ;
 var appendMins = document.getElementById("mins") ;
-var Interval ;
 var keyName ;
 var isRunning = false ;
 const solveList = document.getElementById("solveList") ;
@@ -310,7 +309,6 @@ document.addEventListener('keyup', (event) => {
         //timer.style.color = "white" ;
         timer.style.color = body.getPropertyValue('--color') ;
         isRunning = false ;
-        clearInterval(Interval) ;
         const li = document.createElement("li") ;
         const time = document.createElement("span") ;
 
@@ -331,29 +329,31 @@ document.addEventListener('keyup', (event) => {
 
     else if(keyName  == "r")
     {
-        clearInterval(Interval) ;
-        tens = "00" ;
-        seconds = "0" ;
-        mins = "0" ;
-        appendTens.innerHTML = tens ;
-        appendSeconds.innerHTML = seconds ;
-        appendMins.innerHTML = mins ;
-        document.getElementById("mins").style.display= 'none';
-        document.getElementById("colon").style.display= 'none';
-
-        solveList.removeChild(solveList.firstChild) ;
-    
-        if(solveArr.length == 0)
+        if(confirm("Remove last solve"))
         {
-            appendBestSolve.innerHTML = "--" ;
-            appendAvg.innerHTML = "--" ;
-            appendAo5.innerHTML = "--" ;
-            appendAo12.innerHTML = "--" ;
-            appendAo100.innerHTML = "--" ;
-        }//end if
+            tens = "00" ;
+            seconds = "0" ;
+            mins = "0" ;
+            appendTens.innerHTML = tens ;
+            appendSeconds.innerHTML = seconds ;
+            appendMins.innerHTML = mins ;
+            document.getElementById("mins").style.display= 'none';
+            document.getElementById("colon").style.display= 'none';
 
-        findBestSolve() ;
-        updateStats(solveList.firstChild.textContent) ;
+            solveList.removeChild(solveList.firstChild) ;
+        
+            if(solveArr.length == 0)
+            {
+                appendBestSolve.innerHTML = "--" ;
+                appendAvg.innerHTML = "--" ;
+                appendAo5.innerHTML = "--" ;
+                appendAo12.innerHTML = "--" ;
+                appendAo100.innerHTML = "--" ;
+            }//end if
+
+            findBestSolve() ;
+            updateStats(solveList.firstChild.textContent) ;
+        }
     }//end else if
 
     if(keyName == "c")
@@ -410,7 +410,6 @@ function generateScramble()
     var scramble_int = [] ; 
     var scramble_char = [] ;
     var scrambleStr ; 
-    var isValidScramble = false ;
     
     //Ensure that no side is turned twice in a row
     scramble_int.push(getRandomNum(NUM_MOVE_TYPE)) ;
