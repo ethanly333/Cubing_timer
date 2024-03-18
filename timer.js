@@ -1,6 +1,6 @@
-var mins = 0 ;
-var seconds = 0 ;
-var tens = 0 ;
+var mins = "00" ;
+var seconds = "00" ;
+var tens = "00" ;
 var appendTens = document.getElementById("tens") ;
 var appendSeconds = document.getElementById("seconds") ;
 var appendMins = document.getElementById("mins") ;
@@ -9,6 +9,7 @@ var keyName ;
 var isRunning = false ;
 const solveList = document.getElementById("solveList") ;
 const solveArr = solveList.getElementsByTagName("li") ;
+var start_time ;
 
 /* All statistic variables */
 var appendBestSolve = document.getElementById("bestSolve") ;
@@ -33,9 +34,17 @@ const openModalBtn = document.querySelector(".cmdBtn")
 /* Theme Switcher Modal Variables */
 var themeModal = document.querySelector(".themeModal");
 
+/* Manual Insert Modal Variables */
+var insertModal = document.querySelector(".insertModal") ;
+
 var appendScramble = document.getElementById("scramble") ;
 var currentTheme = "classyOGTheme" ;
 var body = getComputedStyle(document.querySelector('body')) ;
+
+const openInsertModal = function() {
+    insertModal.classList.remove("hidden") ;
+    overlay.classList.remove("hidden") ;
+} ;
 
 const openThemeModal = function() {
     themeModal.classList.remove("hidden") ;
@@ -51,40 +60,59 @@ const closeModal = function() {
     modal.classList.add("hidden") ;
     overlay.classList.add("hidden") ;
     themeModal.classList.add("hidden") ;
+    insertModal.classList.add("hidden") ;
 } ; 
 
 openModalBtn.addEventListener("click", openModal) ;
 overlay.addEventListener("click", closeModal) ;
 
-if(mins == 0)
-{
-    document.getElementById("mins").style.display= 'none';
-    document.getElementById("colon").style.display= 'none';
-}
-
 function startTimer() 
 {
-    tens++ ;
-    if(tens<9)
-        appendTens.innerHTML = "0" + tens ;
-    if(tens>9)
-        appendTens.innerHTML = tens ;
-    if(tens>99)
+    var now = (new Date()).getTime() ;
+    var diff = now - start_time ;
+
+    if(isRunning)
     {
-        seconds++ ;
-        appendSeconds.innerHTML = seconds ;
-        tens = 0 ;
-        appendTens.innerHTML = "00" ;
-    }//end if
-    if(seconds>59)
-    {   
-        mins++ ;
-        appendMins.innerHTML = mins ;
-        document.getElementById("mins").style.display= '' ;
-        document.getElementById("colon").style.display= '';
-        seconds = 0 ;
-        appendSeconds.innerHTML = seconds ;
-    }//end if
+        var str_time = (new Date(diff).toISOString().slice(11, 23)) ; //ex. 15:00:00.000
+        
+        //var str_hour = "" + str_time.substring(0, 2) ;
+        var str_min = "" + str_time.substring(3, 5) ;
+        var str_sec = "" + str_time.substring(6, 8) ;
+        var str_tens = "" + str_time.substring(9, 11) ;
+
+        document.getElementById("tens").innerHTML = str_tens ;
+
+        // strip the leading 0 from seconds if applicable
+        if(str_sec[0] == "0")
+        {
+            str_sec = str_sec.slice(1) ;   
+        }
+        else
+        {
+            str_sec = "" + str_time.substring(6, 8) ;
+        }
+
+        // only show minutes if they are not 00
+        if(str_min != "00")
+        {
+            // strip the leading 0 from minutes if applicable
+            if(str_min[0] == "0")
+            {
+                str_min = str_min.slice(1) ;
+            }
+            else
+            {
+                str_min = "" + str_time.substring(3, 5) ;
+            }
+            document.getElementById("mins").style.display = ''  ;
+            document.getElementById("colon").style.display = '' ;
+            document.getElementById("mins").innerHTML = str_min ;
+        }
+
+        document.getElementById("seconds").innerHTML = str_sec ;
+
+        requestAnimationFrame(startTimer) ;
+    }
 }//end startTimer
 
 function findBestSolve()
@@ -253,16 +281,19 @@ document.addEventListener('keyup', (event) => {
     const timer = document.getElementById("timer") ;
     if(keyName == " " && !isRunning)
     {
-        clearInterval(Interval) ;
-        mins = "0" ;
+        isRunning = true ;
+        mins = "00" ;
         tens = "00" ;
         seconds = "0" ;
+
         appendTens.innerHTML = tens ;
         appendSeconds.innerHTML = seconds ;
 
-        isRunning = true ;
-        clearInterval(Interval) ;
-        Interval = setInterval(startTimer, 10) ;
+        document.getElementById("mins").style.display = 'none' ;
+        document.getElementById("colon").style.display = 'none' ;
+
+        start_time = (new Date()).getTime() ;
+        startTimer() ;
     }//end if    
 
     else if(keyName == " " && isRunning) 
@@ -339,6 +370,11 @@ document.addEventListener('keyup', (event) => {
     if(keyName == "t")
     {
         openThemeModal() ;
+    }//end if
+
+    if(keyName == "i")
+    {
+        openInsertModal() ;
     }//end if
 }, false) ; //end event listener for keyup
 
