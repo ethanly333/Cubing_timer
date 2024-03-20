@@ -89,7 +89,7 @@ function startTimer()
         tens = str_tens ;
 
         // strip the leading 0 from seconds if applicable
-        if(str_sec[0] == "0")
+        if(str_sec[0] == "0" && str_min == "00")
         {
             str_sec = str_sec.slice(1) ;   
         }
