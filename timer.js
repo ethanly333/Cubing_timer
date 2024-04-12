@@ -71,6 +71,28 @@ if(mins == "00")
     document.getElementById("colon").style.display = 'none' ;
 }
 
+function convertTimeToFloat(time)
+{
+    var minFloat ;
+    var secFloat ;
+    var sliceIdx ;
+    if(time.length > 5)     //time is > 60s 
+    {
+        minFloat = parseFloat(time.split(":")) ;
+        if(minFloat < 10)
+            sliceIdx = 2 ;
+        else
+            sliceIdx = 3 ;
+        secFloat = parseFloat(time.slice(sliceIdx)) ;
+        //alert(secFloat) ;
+    }
+}
+
+function convertFloatToTime(time)
+{
+    
+}
+
 function startTimer() 
 {
     var now = (new Date()).getTime() ;
@@ -140,6 +162,7 @@ function findBestSolve()
 
 function updateStats(time)
 {
+    convertTimeToFloat(time) ;
     if(solveArr.length == 1)
     {
         appendBestSolve.innerHTML = time ;
