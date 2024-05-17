@@ -75,22 +75,33 @@ function convertTimeToFloat(time)
 {
     var minFloat ;
     var secFloat ;
-    var sliceIdx ;
+    var timeInSecFloat ;
     if(time.length > 5)     //time is > 60s 
     {
         minFloat = parseFloat(time.split(":")) ;
         if(minFloat < 10)
-            sliceIdx = 2 ;
+            startIdxSec = 2 ;
         else
-            sliceIdx = 3 ;
-        secFloat = parseFloat(time.slice(sliceIdx)) ;
-        //alert(secFloat) ;
+            startIdxSec = 3 ;
+        secFloat = parseFloat(time.substr(startIdxSec, time.length)) ;
+
+        timeInSecFloat = (minFloat * 60) + secFloat ;
     }
+    else
+        timeInSecFloat = parseFloat(time) ;
+
+    return timeInSecFloat ;
 }
 
 function convertFloatToTime(time)
 {
-    
+    var minutes ;
+    var seconds ;
+
+    minutes = Math.trunc(time/60) ;
+    seconds = time - (minutes*60) ;
+
+    return minutes + ":" + seconds.toFixed(2) ;
 }
 
 function startTimer() 
@@ -147,13 +158,13 @@ function startTimer()
 
 function findBestSolve()
 {
-    bestSolve = parseFloat(solveArr[0].textContent) ;
+    bestSolve = convertTimeToFloat(solveArr[0].textContent) ;
     tempIdx = 0 ;
     for(let i=1; i<solveArr.length; i++)
     {
-        if(parseFloat(solveArr[i].textContent) < bestSolve)
+        if(convertTimeToFloat(solveArr[i].textContent) < bestSolve)
         {
-            bestSolve = parseFloat(solveArr[i].textContent) ;
+            bestSolve = convertTimeToFloat(solveArr[i].textContent) ;
             tempIdx = i ;
         }
     }
@@ -162,53 +173,53 @@ function findBestSolve()
 
 function updateStats(time)
 {
-    convertTimeToFloat(time) ;
     if(solveArr.length == 1)
     {
         appendBestSolve.innerHTML = time ;
-        bestSolve = parseFloat(time) ;
+        bestSolve = convertTimeToFloat(time) ;
         appendAvg.innerHTML = time ;
-        avg = parseFloat(time) ;
+        avg = convertTimeToFloat(time) ;
     }//end if
 
     /* Best Solve and Avg Statistic */
     if(solveArr.length > 1)
     {
-        if(parseFloat(time) < bestSolve)
+        if(convertTimeToFloat(time) < bestSolve)
         {
-            bestSolve = parseFloat(time) ;
+            bestSolve = convertTimeToFloat(time) ;
             appendBestSolve.innerHTML = time ;
         }//end if
 
         var avgtemp = 0 ;
         for(let i=0; i<solveArr.length; i++) 
         {
-            avgtemp += parseFloat(solveArr[i].textContent) ;
+            avgtemp += convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         avg = avgtemp/solveArr.length ;
-        appendAvg.innerHTML = avg.toFixed(2) ;
+        
+        appendAvg.innerHTML = convertFloatToTime(avg.toFixed(2)) ; //avg.toFixed(2) ;
     }//end else if
 
     /* Ao5 Statistic */
     if(solveArr.length >= 5)
     {
         var ao5temp = 0 ;
-        var bestTime = parseFloat(solveArr[0].textContent) ;
-        var worstTime = parseFloat(solveArr[0].textContent) ;
+        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
+        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
 
         for(let i=1; i<5; i++)
         {
-            if(parseFloat(solveArr[i].textContent) < bestTime)
-                bestTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
+                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
 
-            if(parseFloat(solveArr[i].textContent) > worstTime)
-                worstTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
+                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         for(let i=0; i<5; i++)
         {
-            ao5temp += parseFloat(solveArr[i].textContent) ;
+            ao5temp += convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         ao5 = (ao5temp-bestTime-worstTime)/3 ;
@@ -219,21 +230,21 @@ function updateStats(time)
     if(solveArr.length >= 12)
     {
         var ao12temp = 0 ;
-        var bestTime = parseFloat(solveArr[0].textContent) ;
-        var worstTime = parseFloat(solveArr[0].textContent) ;
+        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
+        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
 
         for(let i=1; i<12; i++)
         {
-            if(parseFloat(solveArr[i].textContent) < bestTime)
-                bestTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
+                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
 
-            if(parseFloat(solveArr[i].textContent) > worstTime)
-                worstTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
+                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         for(let i=0; i<12; i++)
         {
-            ao12temp += parseFloat(solveArr[i].textContent) ;
+            ao12temp += convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         ao12 = (ao12temp-bestTime-worstTime)/10 ;
@@ -244,21 +255,21 @@ function updateStats(time)
     if(solveArr.length >= 50)
     {
         var ao50temp = 0 ;
-        var bestTime = parseFloat(solveArr[0].textContent) ;
-        var worstTime = parseFloat(solveArr[0].textContent) ;
+        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
+        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
 
         for(let i=1; i<50; i++)
         {
-            if(parseFloat(solveArr[i].textContent) < bestTime)
-                bestTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
+                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
 
-            if(parseFloat(solveArr[i].textContent) > worstTime)
-                worstTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
+                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         for(let i=0; i<50; i++)
         {
-            ao50temp += parseFloat(solveArr[i].textContent) ;
+            ao50temp += convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         ao50 = (ao50temp-bestTime-worstTime)/48 ;
@@ -269,21 +280,21 @@ function updateStats(time)
     if(solveArr.length >= 100)
     {
         var ao100temp = 0 ;
-        var bestTime = parseFloat(solveArr[0].textContent) ;
-        var worstTime = parseFloat(solveArr[0].textContent) ;
+        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
+        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
 
         for(let i=1; i<100; i++)
         {
-            if(parseFloat(solveArr[i].textContent) < bestTime)
-                bestTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
+                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
 
-            if(parseFloat(solveArr[i].textContent) > worstTime)
-                worstTime = parseFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
+                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         for(let i=0; i<100; i++)
         {
-            ao100temp += parseFloat(solveArr[i].textContent) ;
+            ao100temp += convertTimeToFloat(solveArr[i].textContent) ;
         }//end for i
 
         ao100 = (ao100temp-bestTime-worstTime)/98 ;
