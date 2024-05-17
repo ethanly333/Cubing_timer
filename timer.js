@@ -95,13 +95,19 @@ function convertTimeToFloat(time)
 
 function convertFloatToTime(time)
 {
+    var formattedTime ;
     var minutes ;
     var seconds ;
 
     minutes = Math.trunc(time/60) ;
     seconds = time - (minutes*60) ;
 
-    return minutes + ":" + seconds.toFixed(2) ;
+    if(minutes > 0)
+        formattedTime = minutes + ":" + seconds.toFixed(2) ;
+    else
+        formattedTime = seconds.toFixed(2) ;
+    
+    return formattedTime ; 
 }
 
 function startTimer() 
@@ -198,7 +204,7 @@ function updateStats(time)
 
         avg = avgtemp/solveArr.length ;
         
-        appendAvg.innerHTML = convertFloatToTime(avg.toFixed(2)) ; //avg.toFixed(2) ;
+        appendAvg.innerHTML = convertFloatToTime(avg.toFixed(2)) ;
     }//end else if
 
     /* Ao5 Statistic */
@@ -223,7 +229,7 @@ function updateStats(time)
         }//end for i
 
         ao5 = (ao5temp-bestTime-worstTime)/3 ;
-        appendAo5.innerHTML = ao5.toFixed(2) ;
+        appendAo5.innerHTML = convertTimeToFloat(ao5.toFixed(2)) ;
     }//end if
 
     /* Ao12 Statistic */
@@ -248,7 +254,7 @@ function updateStats(time)
         }//end for i
 
         ao12 = (ao12temp-bestTime-worstTime)/10 ;
-        appendAo12.innerHTML = ao12.toFixed(2) ;
+        appendAo12.innerHTML = convertFloatToTime(ao12.toFixed(2)) ;
     }//end if
 
     /* Ao50 Statistic */
@@ -273,7 +279,7 @@ function updateStats(time)
         }//end for i
 
         ao50 = (ao50temp-bestTime-worstTime)/48 ;
-        appendAo50.innerHTML = ao50.toFixed(2) ;
+        appendAo50.innerHTML = convertFloatToTime(ao50.toFixed(2)) ;
     }//end if
 
     /* Ao100 Statistic */
@@ -298,7 +304,7 @@ function updateStats(time)
         }//end for i
 
         ao100 = (ao100temp-bestTime-worstTime)/98 ;
-        appendAo100.innerHTML = ao100.toFixed(2) ;
+        appendAo100.innerHTML = convertFloatToTime(ao100.toFixed(2)) ;
     }//end if
 }//end update Stats
 
