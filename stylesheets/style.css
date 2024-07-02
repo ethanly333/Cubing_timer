@@ -94,7 +94,7 @@ li span {
     background-color: var(--hover-color) ;
 }
 
-.modal, .themeModal, .insertModal{
+.modal, .themeModal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,16 +111,31 @@ li span {
     align-items: center ;
 }
 
-.insertContainer {
-    justify-content: center ;
+.statModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 90vw;
+    padding: 1.3rem;
+    min-height: 70vh;
+    position: absolute;
+    top: 20%;
+    background-color: var(--cmd-modal) ;
+    color: var(--modal-text) ;
+    border-radius: 15px;
+    z-index: 2 ;
     align-items: center ;
-}
 
-
-.flex {
-    display: flex ;
-    flex-direction: row ;
-    justify-content: center ;
+    font-size: 100% ;
+    border-radius: 8px ;
+    border: none ;
+    padding-top: 5px ;
+    padding-bottom: 5px ;
+    padding-right: 12px ;
+    padding-left: 12px ;
+    margin-top: 10px ;
+    margin-bottom: 10px ;
 }
 
 .overlay {
@@ -136,6 +151,18 @@ li span {
     z-index: 1;
 }
 
+.statContainer {
+    justify-content: center ;
+    align-items: center ;
+}
+
+
+.flex {
+    display: flex ;
+    flex-direction: row ;
+    justify-content: center ;
+}
+
 .hidden {
     display: none ;
 }
@@ -144,17 +171,6 @@ li span {
     text-align: center ;
 }
 
-.insertModal {
-    font-size: 100% ;
-    border-radius: 8px ;
-    border: none ;
-    padding-top: 5px ;
-    padding-bottom: 5px ;
-    padding-right: 12px ;
-    padding-left: 12px ;
-    margin-top: 10px ;
-    margin-bottom: 10px ;
-}
 
 #manualSolve {
     border-radius: 8px ;
