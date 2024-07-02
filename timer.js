@@ -34,14 +34,14 @@ const openModalBtn = document.querySelector(".cmdBtn")
 var themeModal = document.querySelector(".themeModal");
 
 /* Manual Insert Modal Variables */
-var insertModal = document.querySelector(".insertModal") ;
+var statModal = document.querySelector(".statModal") ;
 
 var appendScramble = document.getElementById("scramble") ;
 var currentTheme = "classyOGTheme" ;
 var body = getComputedStyle(document.querySelector('body')) ;
 
-const openInsertModal = function() {
-    insertModal.classList.remove("hidden") ;
+const openStatModal = function() {
+    statModal.classList.remove("hidden") ;
     overlay.classList.remove("hidden") ;
 } ;
 
@@ -59,7 +59,7 @@ const closeModal = function() {
     modal.classList.add("hidden") ;
     overlay.classList.add("hidden") ;
     themeModal.classList.add("hidden") ;
-    insertModal.classList.add("hidden") ;
+    statModal.classList.add("hidden") ;
 } ; 
 
 openModalBtn.addEventListener("click", openModal) ;
@@ -424,9 +424,9 @@ document.addEventListener('keyup', (event) => {
         openThemeModal() ;
     }//end if
 
-    if(keyName == "i")
+    if(keyName == "s")
     {
-        openInsertModal() ;
+        openStatModal() ;
     }//end if
 }, false) ; //end event listener for keyup
 
