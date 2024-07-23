@@ -6,8 +6,9 @@ var appendSeconds = document.getElementById("seconds") ;
 var appendMins = document.getElementById("mins") ;
 var keyName ;
 var isRunning = false ;
-const solveList = document.getElementById("solveList") ;
-const solveArr = solveList.getElementsByTagName("li") ;
+var solveList = document.getElementById("solveList") ;
+var solveArr = solveList.getElementsByTagName("li") ;
+var string_SolveArr = [];
 var start_time ;
 
 /* All statistic variables */
@@ -37,7 +38,6 @@ var themeModal = document.querySelector(".themeModal");
 var statModal = document.querySelector(".statModal") ;
 
 var appendScramble = document.getElementById("scramble") ;
-var currentTheme = "classyOGTheme" ;
 var body = getComputedStyle(document.querySelector('body')) ;
 
 const openStatModal = function() {
@@ -65,11 +65,106 @@ const closeModal = function() {
 openModalBtn.addEventListener("click", openModal) ;
 overlay.addEventListener("click", closeModal) ;
 
+/* LOCAL STORAGE FUNCTIONS FOR SAVING STATE */
+function setItem(key, item) 
+{
+    localStorage.setItem(key, item);
+}
+
+function getItem(key) 
+{
+    return localStorage.getItem(key);
+}
+
+/* THEME INIT */
+if(getItem("theme") == null)
+{
+    setItem("theme", "classyOGTheme");
+}
+else
+{
+    document.body.classList.replace("classyOGTheme", getItem("theme")) ;
+}
+
+/* SOLVE INIT */
+if(localStorage != null)
+{
+    //var solveList_arr = [];
+    solveList.innerHTML = getItem("solveList");
+    /*for(let i=0; i<getItem("solveList").length; i++)
+    {
+        solveList.prepend(getItem("solveList")[i]);
+    }*/
+}
+
+function initStats() 
+{
+    const empty = "--"
+    setItem("appendBestSolve", empty);
+    setItem("appendAvg", empty);
+    setItem("appendAo5", empty);
+    setItem("appendAo12", empty);
+    setItem("appendAo50", empty);
+    setItem("appendAo100", empty);
+}
+
+function loadSavedStats()
+{
+    const empty = "--";
+    if(getItem("appendAo5") == null) 
+    {
+        setItem("appendAo5", empty);
+        setItem("appendAo12", empty);
+        setItem("appendAo50", empty);
+        setItem("appendAo100", empty);
+    }
+    else if(getItem("appendAo12") == null)
+    {
+        setItem("appendAo12", empty);
+        setItem("appendAo50", empty);
+        setItem("appendAo100", empty);
+    }
+    else if(getItem("appendAo50") == null)
+    {
+        setItem("appendAo50", empty);
+        setItem("appendAo100", empty);
+    }
+    else if(getItem("appendAo100") == null)
+    {
+        setItem("appendAo100", empty);
+    }
+    else
+    {
+        // Do nothing
+    }
+}
+
+function appendAllStats()
+{
+    appendBestSolve.innerHTML = getItem("appendBestSolve");
+    appendAvg.innerHTML = getItem("appendAvg"); 
+    appendAo5.innerHTML = getItem("appendAo5");
+    appendAo12.innerHTML = getItem("appendAo12");
+    appendAo50.innerHTML = getItem("appendAo50");
+    appendAo100.innerHTML = getItem("appendAo100");
+}
+
 if(mins == "00")
 {
     document.getElementById("mins").style.display = 'none' ;
     document.getElementById("colon").style.display = 'none' ;
 }
+
+if(getItem("appendBestSolve") == null) 
+{
+    initStats();
+}
+else
+{
+    loadSavedStats();
+}
+
+appendAllStats();
 
 function convertTimeToFloat(time)
 {
@@ -160,151 +255,180 @@ function startTimer()
 
         requestAnimationFrame(startTimer) ;
     }
-}//end startTimer
+}
 
 function findBestSolve()
 {
-    bestSolve = convertTimeToFloat(solveArr[0].textContent) ;
+    bestSolve = convertTimeToFloat(string_SolveArr[0]);
     tempIdx = 0 ;
     for(let i=1; i<solveArr.length; i++)
     {
-        if(convertTimeToFloat(solveArr[i].textContent) < bestSolve)
+        if(convertTimeToFloat(string_SolveArr[i]) < bestSolve) 
         {
-            bestSolve = convertTimeToFloat(solveArr[i].textContent) ;
+            setItem("bestSolve", string_SolveArr[i]);
+            bestSolve = convertTimeToFloat(string_SolveArr[i]) ;
             tempIdx = i ;
         }
     }
-    appendBestSolve.innerHTML = solveArr[tempIdx].textContent ;
+    setItem("appendBestSolve", string_SolveArr[tempIdx]);
+    appendBestSolve.innerHTML =  getItem("appendBestSolve");
 }
 
 function updateStats(time)
 {
+    /* DEBUG */
+    //console.log(string_SolveArr);
+    /****************/
+
+    // retrieve the stored solve array string and split it back into separate indices
+    string_SolveArr = getItem("string_SolveArr").split(',');
+
     if(solveArr.length == 1)
     {
-        appendBestSolve.innerHTML = time ;
-        bestSolve = convertTimeToFloat(time) ;
-        appendAvg.innerHTML = time ;
-        avg = convertTimeToFloat(time) ;
+        setItem("appendBestSolve", time);
+        appendBestSolve.innerHTML = getItem("appendBestSolve") ;
+
+        setItem("bestSolve", time);
+        bestSolve = convertTimeToFloat(getItem("appendBestSolve")); 
+
+        setItem("appendAvg", time);
+        appendAvg.innerHTML = getItem("appendAvg") ;
     }//end if
 
     /* Best Solve and Avg Statistic */
     if(solveArr.length > 1)
     {
-        if(convertTimeToFloat(time) < bestSolve)
+        if(convertTimeToFloat(time) < convertTimeToFloat(getItem("bestSolve")))
         {
+            setItem("bestSolve", time);
             bestSolve = convertTimeToFloat(time) ;
-            appendBestSolve.innerHTML = time ;
+
+            setItem("appendBestSolve", time);
+            appendBestSolve.innerHTML = getItem("appendBestSolve");
         }//end if
 
         var avgtemp = 0 ;
         for(let i=0; i<solveArr.length; i++) 
         {
-            avgtemp += convertTimeToFloat(solveArr[i].textContent) ;
+            avgtemp += convertTimeToFloat(string_SolveArr[i]);
         }//end for i
 
-        avg = avgtemp/solveArr.length ;
-        
-        appendAvg.innerHTML = convertFloatToTime(avg.toFixed(2)) ;
+        avg = (avgtemp/string_SolveArr.length).toFixed(2);
+
+        appendAvg.innerHTML = convertFloatToTime(avg); 
+        setItem("appendAvg", convertFloatToTime(avg));
     }//end else if
 
     /* Ao5 Statistic */
     if(solveArr.length >= 5)
     {
-        var ao5temp = 0 ;
-        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
-        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
+        //console.log(string_SolveArr);
 
+        var ao5temp = 0 ;
+        var bestTime = convertTimeToFloat(string_SolveArr[0]) ;
+        var worstTime = convertTimeToFloat(string_SolveArr[0]) ;
+
+        // Find the best and worst times in the last 5 solves to remove from the average
         for(let i=1; i<5; i++)
         {
-            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
-                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(string_SolveArr[i]) < bestTime) 
+                bestTime = convertTimeToFloat(string_SolveArr[i]); 
 
-            if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
-                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(string_SolveArr[i]) > worstTime)
+                worstTime = convertTimeToFloat(string_SolveArr[i]); 
         }//end for i
 
         for(let i=0; i<5; i++)
         {
-            ao5temp += convertTimeToFloat(solveArr[i].textContent) ;
+            ao5temp += convertTimeToFloat(string_SolveArr[i]) ;
         }//end for i
 
-        ao5 = (ao5temp-bestTime-worstTime)/3 ;
-        appendAo5.innerHTML = convertTimeToFloat(ao5.toFixed(2)) ;
+        ao5 = ((ao5temp-bestTime-worstTime)/3).toFixed(2);
+
+        //setItem("ao5", JSON.stringify(((ao5temp-bestTime-worstTime)/3).toFixed(2)));
+        //ao5 = JSON.parse(getItem("ao5"));
+        //setItem("ao5", ao5);
+
+        appendAo5.innerHTML = convertFloatToTime(ao5);//convertTimeToFloat(ao5.toFixed(2)) ;
+        setItem("appendAo5", convertFloatToTime(ao5));
     }//end if
 
     /* Ao12 Statistic */
     if(solveArr.length >= 12)
     {
         var ao12temp = 0 ;
-        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
-        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
+        var bestTime = convertTimeToFloat(string_SolveArr[0]) ;
+        var worstTime = convertTimeToFloat(string_SolveArr[0]) ;
 
         for(let i=1; i<12; i++)
         {
-            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
-                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(string_SolveArr[i]) < bestTime)
+                bestTime = convertTimeToFloat(string_SolveArr[i]) ;
 
-            if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
-                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(string_SolveArr[i]) > worstTime)
+                worstTime = convertTimeToFloat(string_SolveArr[i]) ;
         }//end for i
 
         for(let i=0; i<12; i++)
         {
-            ao12temp += convertTimeToFloat(solveArr[i].textContent) ;
+            ao12temp += convertTimeToFloat(string_SolveArr[i]) ;
         }//end for i
 
-        ao12 = (ao12temp-bestTime-worstTime)/10 ;
-        appendAo12.innerHTML = convertFloatToTime(ao12.toFixed(2)) ;
+        ao12 = ((ao12temp-bestTime-worstTime)/10).toFixed(2) ;
+        appendAo12.innerHTML = convertFloatToTime(ao12) ;
+        setItem("appendAo12", convertFloatToTime(ao12));
     }//end if
 
     /* Ao50 Statistic */
     if(solveArr.length >= 50)
     {
         var ao50temp = 0 ;
-        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
-        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
+        var bestTime = convertTimeToFloat(string_SolveArr[0]) ;
+        var worstTime = convertTimeToFloat(string_SolveArr[0]) ;
 
         for(let i=1; i<50; i++)
         {
-            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
-                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(string_SolveArr[i]) < bestTime)
+                bestTime = convertTimeToFloat(string_SolveArr[i]) ;
 
-            if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
-                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(string_SolveArr[i]) > worstTime)
+                worstTime = convertTimeToFloat(string_SolveArr[i]) ;
         }//end for i
 
         for(let i=0; i<50; i++)
         {
-            ao50temp += convertTimeToFloat(solveArr[i].textContent) ;
+            ao50temp += convertTimeToFloat(string_SolveArr[i]) ;
         }//end for i
 
-        ao50 = (ao50temp-bestTime-worstTime)/48 ;
-        appendAo50.innerHTML = convertFloatToTime(ao50.toFixed(2)) ;
+        ao50 = ((ao50temp-bestTime-worstTime)/48).toFixed(2) ;
+        appendAo50.innerHTML = convertFloatToTime(ao50) ;
+        setItem("appendAo50", convertFloatToTime(ao50));
     }//end if
 
     /* Ao100 Statistic */
     if(solveArr.length >= 100)
     {
         var ao100temp = 0 ;
-        var bestTime = convertTimeToFloat(solveArr[0].textContent) ;
-        var worstTime = convertTimeToFloat(solveArr[0].textContent) ;
+        var bestTime = convertTimeToFloat(string_SolveArr[0]) ;
+        var worstTime = convertTimeToFloat(string_SolveArr[0]) ;
 
         for(let i=1; i<100; i++)
         {
-            if(convertTimeToFloat(solveArr[i].textContent) < bestTime)
-                bestTime = convertTimeToFloat(solveArr[i].textContent) ;
+            if(convertTimeToFloat(string_SolveArr[i]) < bestTime)
+                bestTime = convertTimeToFloat(string_SolveArr[i]) ;
 
             if(convertTimeToFloat(solveArr[i].textContent) > worstTime)
-                worstTime = convertTimeToFloat(solveArr[i].textContent) ;
+                worstTime = convertTimeToFloat(string_SolveArr[i]) ;
         }//end for i
 
         for(let i=0; i<100; i++)
         {
-            ao100temp += convertTimeToFloat(solveArr[i].textContent) ;
+            ao100temp += convertTimeToFloat(string_SolveArr[i]) ;
         }//end for i
 
-        ao100 = (ao100temp-bestTime-worstTime)/98 ;
-        appendAo100.innerHTML = convertFloatToTime(ao100.toFixed(2)) ;
+        ao100 = ((ao100temp-bestTime-worstTime)/98).toFixed(2);
+        appendAo100.innerHTML = convertFloatToTime(ao100);
+        setItem("appendAo100", convertFloatToTime(ao100));
     }//end if
 }//end update Stats
 
@@ -360,8 +484,17 @@ document.addEventListener('keyup', (event) => {
         else
             time.innerHTML = seconds + "." + tens ; //`${seconds}.${tens}` ;
 
-        li.append(time) ;
-        solveList.prepend(li) ;
+        li.append(time) ; 
+        solveList.prepend(li) ; 
+        setItem("solveList", solveList.innerHTML);
+        //console.log(JSON.stringify(solveList.classList));
+        
+        if(getItem("string_SolveArr") != null)
+        {
+            string_SolveArr = getItem("string_SolveArr").split(','); 
+        }
+        string_SolveArr.unshift(li.textContent);
+        setItem("string_SolveArr", string_SolveArr.toString());
 
         updateStats(time.innerHTML) ;
         generateScramble() ;
@@ -382,17 +515,16 @@ document.addEventListener('keyup', (event) => {
 
             solveList.removeChild(solveList.firstChild) ;
         
-            if(solveArr.length == 0)
+            if(string_SolveArr.length == 0)
             {
-                appendBestSolve.innerHTML = "--" ;
-                appendAvg.innerHTML = "--" ;
-                appendAo5.innerHTML = "--" ;
-                appendAo12.innerHTML = "--" ;
-                appendAo100.innerHTML = "--" ;
-            }//end if
-
-            findBestSolve() ;
-            updateStats(solveList.firstChild.textContent) ;
+                initStats();
+                appendAllStats();
+            }
+            else
+            {
+                findBestSolve() ;
+                updateStats(solveList.firstChild.textContent) ;
+            }
         }
     }//end else if
 
@@ -410,12 +542,12 @@ document.addEventListener('keyup', (event) => {
             document.getElementById("mins").style.display= 'none';
             document.getElementById("colon").style.display= 'none';
 
-            appendBestSolve.innerHTML = "--" ;
-            appendAvg.innerHTML = "--" ;
-            appendAo5.innerHTML = "--" ;
-            appendAo12.innerHTML = "--" ;
-            appendAo50.innerHTML = "--" ;
-            appendAo100.innerHTML = "--" ;
+            var saveTheme = getItem("theme");
+            localStorage.clear();
+            setItem("theme", saveTheme);
+            document.body.classList.replace("classyOGTheme", getItem("theme")) ;
+            initStats();
+            appendAllStats();
         }        
     }//end else if
 
@@ -496,36 +628,36 @@ function generateScramble()
 }//end generateScramble
 
 function classyOGMode() {
-    document.body.classList.replace(currentTheme, "classyOGTheme") ;
-    currentTheme = "classyOGTheme" ;
+    document.body.classList.replace(getItem("theme"), "classyOGTheme") ;
+    setItem("theme", "classyOGTheme");
 }//end classy OG Mode
 
 function sunsetMode() {
-    document.body.classList.replace(currentTheme, "sunsetTheme") ;
-    currentTheme = "sunsetTheme" ;
+    document.body.classList.replace(getItem("theme"), "sunsetTheme") ;
+    setItem("theme", "sunsetTheme");
 }//end sunset Mode
 
 function vintageMode() {
-    document.body.classList.replace(currentTheme, "vintageTheme") ;
-    currentTheme = "vintageTheme" ;
+    document.body.classList.replace(getItem("theme"), "vintageTheme") ;
+    setItem("theme", "vintageTheme");
 }//end vintage mode
 
 function jungleMode() {
-    document.body.classList.replace(currentTheme, "jungleTheme") ;
-    currentTheme = "jungleTheme" ;
+    document.body.classList.replace(getItem("theme"), "jungleTheme") ;
+    setItem("theme", "jungleTheme");
 }//end jungle mode
 
 function halloweenMode() {
-    document.body.classList.replace(currentTheme, "halloweenTheme") ;
-    currentTheme = "halloweenTheme" ;
+    document.body.classList.replace(getItem("theme"), "halloweenTheme") ;
+    setItem("theme", "halloweenTheme");
 }
 
 function lightMode() {
-    document.body.classList.replace(currentTheme, "lightTheme") ;
-    currentTheme = "lightTheme" ;
+    document.body.classList.replace(getItem("theme"), "lightTheme") ;
+    setItem("theme", "lightTheme");
 }
 
 function tuxMode() {
-    document.body.classList.replace(currentTheme, "tuxTheme") ;
-    currentTheme = "tuxTheme" ;
+    document.body.classList.replace(getItem("theme"), "tuxTheme") ;
+    setItem("theme", "tuxTheme");
 }
