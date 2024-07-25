@@ -259,17 +259,19 @@ function startTimer()
 
 function findBestSolve()
 {
+    string_SolveArr = getItem("string_SolveArr").split(',');
     bestSolve = convertTimeToFloat(string_SolveArr[0]);
     tempIdx = 0 ;
-    for(let i=1; i<solveArr.length; i++)
+    for(let i=1; i<string_SolveArr.length; i++)
     {
-        if(convertTimeToFloat(string_SolveArr[i]) < bestSolve) 
+        if(convertTimeToFloat(string_SolveArr[i]) < convertTimeToFloat(bestSolve)) 
         {
             setItem("bestSolve", string_SolveArr[i]);
             bestSolve = convertTimeToFloat(string_SolveArr[i]) ;
             tempIdx = i ;
         }
     }
+    console.log(string_SolveArr[tempIdx]);
     setItem("appendBestSolve", string_SolveArr[tempIdx]);
     appendBestSolve.innerHTML =  getItem("appendBestSolve");
 }
@@ -289,7 +291,7 @@ function updateStats(time)
         appendBestSolve.innerHTML = getItem("appendBestSolve") ;
 
         setItem("bestSolve", time);
-        bestSolve = convertTimeToFloat(getItem("appendBestSolve")); 
+        bestSolve = convertTimeToFloat(getItem("bestSolve")); 
 
         setItem("appendAvg", time);
         appendAvg.innerHTML = getItem("appendAvg") ;
@@ -308,13 +310,15 @@ function updateStats(time)
         }//end if
 
         var avgtemp = 0 ;
-        for(let i=0; i<solveArr.length; i++) 
+        for(let i=0; i<string_SolveArr.length; i++) 
         {
             avgtemp += convertTimeToFloat(string_SolveArr[i]);
         }//end for i
 
         avg = (avgtemp/string_SolveArr.length).toFixed(2);
 
+        console.log(avgtemp + '/' + string_SolveArr.length);
+        console.log(string_SolveArr);
         appendAvg.innerHTML = convertFloatToTime(avg); 
         setItem("appendAvg", convertFloatToTime(avg));
     }//end else if
@@ -430,6 +434,8 @@ function updateStats(time)
         appendAo100.innerHTML = convertFloatToTime(ao100);
         setItem("appendAo100", convertFloatToTime(ao100));
     }//end if
+
+    //console.log(localStorage);
 }//end update Stats
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -504,6 +510,8 @@ document.addEventListener('keyup', (event) => {
     {
         if(confirm("Remove last solve"))
         {
+            string_SolveArr = getItem("string_SolveArr").split(',');
+
             tens = "00" ;
             seconds = "0" ;
             mins = "0" ;
@@ -514,8 +522,11 @@ document.addEventListener('keyup', (event) => {
             document.getElementById("colon").style.display= 'none';
 
             solveList.removeChild(solveList.firstChild) ;
+
+            string_SolveArr.shift();
+            setItem("string_SolveArr", string_SolveArr);
         
-            if(string_SolveArr.length == 0)
+            if(getItem("string_SolveArr").split(',').length == 0)
             {
                 initStats();
                 appendAllStats();
@@ -543,7 +554,11 @@ document.addEventListener('keyup', (event) => {
             document.getElementById("colon").style.display= 'none';
 
             var saveTheme = getItem("theme");
+            string_SolveArr = [];
+            setItem("string_SolveArr", string_SolveArr);
             localStorage.clear();
+            console.log(localStorage);
+
             setItem("theme", saveTheme);
             document.body.classList.replace("classyOGTheme", getItem("theme")) ;
             initStats();
