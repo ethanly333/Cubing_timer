@@ -1,3 +1,5 @@
+//import { generateScramble } from "./source/scramble.js";
+
 var mins = "00" ;
 var seconds = "00" ;
 var tens = "00" ;
@@ -261,7 +263,7 @@ function findBestSolve()
 {
     string_SolveArr = getItem("string_SolveArr").split(',');
     bestSolve = convertTimeToFloat(string_SolveArr[0]);
-    tempIdx = 0 ;
+    var tempIdx = 0 ;
     for(let i=1; i<string_SolveArr.length; i++)
     {
         if(convertTimeToFloat(string_SolveArr[i]) < convertTimeToFloat(bestSolve)) 
@@ -439,7 +441,7 @@ function updateStats(time)
 }//end update Stats
 
 document.addEventListener("DOMContentLoaded", () => {
-    generateScramble() ;
+    generateScramble(appendScramble) ;
 }) ;
 
 document.addEventListener('keydown', (event) => {
@@ -503,7 +505,7 @@ document.addEventListener('keyup', (event) => {
         setItem("string_SolveArr", string_SolveArr.toString());
 
         updateStats(time.innerHTML) ;
-        generateScramble() ;
+        generateScramble(appendScramble) ;
     }//end else if
 
     else if(keyName  == "r")
@@ -587,7 +589,7 @@ function getRandomNumBetween(min, max)
     return Math.floor(Math.random()*(max-min)+min) ;
 }
 
-function generateScramble() 
+function generateScramble(html_element) 
 {
     const moveList = ["F", "F'", "F2", "R", "R'", "R2", 
                     "L", "L'", "L2", "U", "U'", "U2", 
@@ -639,7 +641,8 @@ function generateScramble()
     }//end for i
 
     scrambleStr = scramble_char.toString().split(',').join(' ') ;
-    appendScramble.innerHTML = scrambleStr ;
+    html_element.innerHTML = scrambleStr;
+    //appendScramble.innerHTML = scrambleStr ;
 }//end generateScramble
 
 function classyOGMode() {
